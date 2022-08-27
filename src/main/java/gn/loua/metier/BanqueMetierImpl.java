@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import gn.loua.dao.CompteRepository;
@@ -63,7 +64,8 @@ public class BanqueMetierImpl implements IBanqueMetier {
 	@Override
 	public Page<Operation> listOperation(String codeCpte, int page, int size) {
 		
-		return operationRepository.listOperation(codeCpte, new PageRequest(page,size));
+		return operationRepository.listOperation(codeCpte, PageRequest.of(page, size));
 	}
+
 
 }

@@ -12,31 +12,71 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">Consultation d'un compte</div>
 					<div class="panel-body">
-					
+						<form th:action="@{/consulterCompte}" method="get">
+							<div>
+								<label>Code Cpte</label>
+								<input type="text" name="codeCompte" th:value="${codeCompte}"/>
+								<button type="submit" class="btn btn-primary">OK</button>
+							</div>
+						</form>	
+						<div class="text-danger" th:if="${exception}" th:text="${exception.message}">
+						</div>				
 					</div>
 				</div>
-				
-				<div class="panel panel-primary">
+				<div class="panel panel-primary" th:if="${compte}">
 					<div class="panel-heading">Informations sur le compte</div>
 					<div class="panel-body">
-					
+						<div>
+							<label>Code:</label>
+							<label th:text="${compte.codeCompte}"></label>
+						</div>
+						<div>
+							<label>Solde:</label>
+							<label th:text="${compte.solde}"></label>
+						</div>
+						<div>
+							<label>Date de création:</label>
+							<label th:text="${compte.dateCreation}"></label>
+						</div>
+						<div>
+							<label>Type de compte:</label>
+							<label th:text="${compte.class.simpleName}"></label>
+						</div>
+						<div th:if="${compte.class.simpleName=='CompteCourant'}">
+							<label>Découvert:</label>
+							<label th:text="${compte.decouvert}"></label>
+						</div>
+						<div th:if="${compte.class.simpleName=='CompteEpargne'}">
+							<label>Taux:</label>
+							<label th:text="${compte.taux}"></label>
+						</div>
 					</div>
 				</div>
-				
-				<div class="panel panel-primary">
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-primary" th:if="${compte}">
 					<div class="panel-heading">Opération sur le compte</div>
 					<div class="panel-body">
 					
 					</div>
 				</div>
 				
-				<div class="panel panel-primary">
+				<div class="panel panel-primary" th:if="${compte}">
 					<div class="panel-heading">Liste des opérations</div>
 					<div class="panel-body">
-					
+						<table class="table table-striped">
+							<tr>
+								<th>Num</th><th>Type</th><th>Date</th><th>Montant</th>
+							</tr>
+							<tr th:each="o:${listeOperations}">
+								<td th:text="${o.numero}"></td>
+								<td th:text="${o.class.simpleName}"></td>
+								<td th:text="${o.dateOperation}"></td>
+								<td th:text="${o.montant}"></td>
+							</tr>
+						</table>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 	</body>
