@@ -75,6 +75,13 @@
 								<td th:text="${o.montant}"></td>
 							</tr>
 						</table>
+						<div>
+							<ul class="nav nav-pills">
+								<li th:each="pa,status:${pages}" >
+									<a th:href="@{index(page=${status.index}),size=${status.size}}" th:text="${status.index}"></a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
