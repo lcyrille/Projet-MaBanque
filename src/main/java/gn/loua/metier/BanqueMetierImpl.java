@@ -51,14 +51,14 @@ public class BanqueMetierImpl implements IBanqueMetier {
 		operationRepository.save(r);
 		cp.setSolde(cp.getSolde()-montant);
 		compteRepository.save(cp);
-		
 	}
 
 	@Override
 	public void virement(String codeCpte1, String codeCpte2, double montant) {
+		if(codeCpte1.equals(codeCpte2))
+			throw new RuntimeException("Impossible d'effectuer un virement sur le même compte");
 		retirer(codeCpte1, montant);
 		verser(codeCpte2, montant);
-		
 	}
 
 	@Override
